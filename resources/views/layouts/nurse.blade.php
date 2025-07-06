@@ -12,7 +12,7 @@
     <div class="min-h-screen flex flex-col">
 
         <!-- Header -->
-        <header class="bg-[#f9d6c3] p-6 shadow-md relative">
+        <header class="bg-[#fad230] p-6 shadow-md relative">
                 <!-- Flex container for hamburger and profile -->
                 <div class="flex items-center justify-between relative z-10">
                     <!-- Hamburger (left, mobile only) -->
@@ -77,7 +77,7 @@
                     @foreach ($links as $link)
                         <a href="{{ $link['route'] }}"
                             class="block text-center px-4 py-4 rounded-2xl text-white text-lg font-medium
-                                bg-[#8f684d] hover:bg-[#9c0e0e] transition">
+                                bg-[#e7dc62] hover:bg-[#f3f0d7] transition">
                             {{ $link['label'] }}
                         </a>
                     @endforeach
