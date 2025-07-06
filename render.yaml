@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: nurse-admin
+    env: php
+    buildCommand: |
+      composer install --no-dev
+      cp .env.example .env
+      php artisan key:generate
+      touch database/database.sqlite
+      php artisan migrate --force
+    startCommand: php artisan serve --host=0.0.0.0 --port=10000
+    envVars:
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: database/database.sqlite
