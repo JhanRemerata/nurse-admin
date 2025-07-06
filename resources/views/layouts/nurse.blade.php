@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'NurseAssist') }}</title>
+    <title>{{ config('app.name', 'Nurse Admin Lite') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased bg-gray-100">
@@ -65,10 +65,10 @@
                     @php
                         $links = [
                             ['label' => 'Dashboard', 'route' => route('dashboard')],
-                            ['label' => "Patient's Book", 'route' => route('patients.index')],
-                            ['label' => 'Vital Signs', 'route' => route('vitals.index')],
-                            ['label' => 'Nursing Notes', 'route' => route('notes.index')],
-                            ['label' => 'Care Task Scheduler', 'route' => route('tasks.index')],
+                            ['label' => 'Nurse Staff', 'route' => route('nurses.index')],
+                            ['label' => "Duty Scheduling", 'route' => route('duty-scheduling.index')],
+                            ['label' => 'Leave Request', 'route' => route('leave-request.index')],
+                            ['label' => 'Attendance Tracker', 'route' => route('attendance-tracker.index')],
                             ['label' => 'Report Generator', 'route' => route('reports.index')],
                             ['label' => 'About Us', 'route' => route('about')],
                         ];

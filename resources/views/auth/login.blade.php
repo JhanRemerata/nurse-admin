@@ -3,7 +3,7 @@
 
         <!-- Heading -->
         <div class="text-center mb-6">
-            <h1 class="text-3xl font-bold text-yellow-900">Login to NurseAssist</h1>
+            <h1 class="text-3xl font-bold text-yellow-900">Login to Nurse Admin Lite</h1>
             <p class="text-sm text-gray-500 mt-1">Welcome back! Please enter your credentials.</p>
         </div>
 
@@ -15,7 +15,7 @@
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
-                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" />
+                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#fad230] focus:border-[#fad230]" />
                 @error('email')
                     <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -25,7 +25,7 @@
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input id="password" type="password" name="password" required
-                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" />
+                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#fad230] focus:border-[#fad230]" />
                 @error('password')
                     <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -34,7 +34,7 @@
             <!-- Remember Me -->
             <div class="flex items-center justify-between">
                 <label class="flex items-center">
-                    <input type="checkbox" name="remember" class="rounded border-gray-300 text-yellow-600 shadow-sm focus:ring-yellow-500">
+                    <input type="checkbox" name="remember" class="rounded border-gray-300 text-[#fad230] shadow-sm focus:ring-[#fad230]">
                     <span class="ml-2 text-sm text-gray-600">Remember me</span>
                 </label>
 
@@ -48,7 +48,7 @@
             <!-- Submit -->
             <div>
                 <button type="submit"
-                    class="w-full bg-yellow-900 text-white py-3 rounded-lg hover:bg-yellow-700 transition">
+                    class="w-full bg-[#fad230] text-white py-3 rounded-lg hover:bg-[#e5da41] transition">
                     Login
                 </button>
             </div>

@@ -3,7 +3,7 @@
 
         <!-- Heading -->
         <div class="text-center mb-6">
-            <h1 class="text-3xl font-bold text-yellow-900">Sign Up for NurseAssist</h1>
+            <h1 class="text-3xl font-bold text-yellow-900">Sign Up for Nurse Admin Lite</h1>
             <p class="text-sm text-gray-500 mt-1">Create your account to get started.</p>
         </div>
 
@@ -15,7 +15,7 @@
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                 <input id="name" name="name" type="text" value="{{ old('name') }}" required autofocus
-                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" />
+                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#fad230] focus:border-[#fad230]" />
                 @error('name')
                     <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -25,7 +25,7 @@
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input id="email" name="email" type="email" value="{{ old('email') }}" required
-                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" />
+                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#fad230] focus:border-[#fad230]" />
                 @error('email')
                     <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -35,7 +35,7 @@
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input id="password" name="password" type="password" required
-                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" />
+                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#fad230] focus:border-[#fad230]" />
                 @error('password')
                     <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -45,13 +45,13 @@
             <div>
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
                 <input id="password_confirmation" name="password_confirmation" type="password" required
-                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" />
+                    class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-[#fad230] focus:border-[#fad230]" />
             </div>
 
             <!-- Submit -->
             <div>
                 <button type="submit"
-                    class="w-full bg-yellow-900 text-white py-3 rounded-lg hover:bg-yellow-700 transition">
+                    class="w-full bg-[#fad230] text-white py-3 rounded-lg hover:bg-[#e5da41] transition">
                     Create Account
                 </button>
             </div>

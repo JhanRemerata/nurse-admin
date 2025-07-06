@@ -4,33 +4,33 @@
 <div class="container mx-auto px-4">
     <!-- Header with Title and Add Button -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
-        <h2 class="text-2xl font-semibold text-yellow-900">Patient's Book</h2>
+        <h2 class="text-2xl font-semibold text-yellow-900">Nurse Staff</h2>
         <button onclick="openModal()"
             class="bg-yellow-900 hover:bg-yellow-700 text-white px-6 py-2 rounded-2xl shadow transition self-start sm:self-auto">
-            + Add Patient
+            + Add Nurse
         </button>
     </div>
 
     <!-- Grid -->
-    <div id="patientGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-        @foreach ($patients as $patient)
+    <div id="nurseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        @foreach ($nurses as $nurse)
             <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition cursor-pointer group relative">
                 <!-- Profile image -->
-                <img src="{{ asset('images/' . ($patient->gender === 'male' ? 'nurse-male.png' : 'nurse.png')) }}"
-                     alt="Patient Icon"
+                <img src="{{ asset('images/' . ($nurse->gender === 'male' ? 'nurse-male.png' : 'nurse-icon.png')) }}"
+                     alt="Nurse Icon"
                      class="w-24 h-24 mx-auto rounded-full object-cover border border-gray-300 mb-3">
 
                 <!-- Info -->
                 <div class="text-center">
-                    <h3 class="text-lg font-semibold text-gray-800">{{ $patient->name }}</h3>
-                    <p class="text-sm text-gray-600">Age: {{ $patient->age }}</p>
-                    <p class="text-sm text-gray-600">Room: {{ $patient->room_number }}</p>
+                    <h3 class="text-lg font-semibold text-gray-800">{{ $nurse->name }}</h3>
+                    <p class="text-sm text-gray-600">Age: {{ $nurse->age }}</p>
+                    <p class="text-sm text-gray-600">Position: {{ $nurse->position }}</p>
                 </div>
 
                 <!-- Edit/Delete Overlay -->
                 <div class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center space-x-4 opacity-0 group-hover:opacity-100 transition">
-                    <a href="{{ route('patients.edit', $patient->id) }}" class="text-white font-semibold hover:underline">Edit</a>
-                    <form method="POST" action="{{ route('patients.destroy', $patient->id) }}">
+                    <a href="{{ route('nurses.edit', $nurse->id) }}" class="text-white font-semibold hover:underline">Edit</a>
+                    <form method="POST" action="{{ route('nurses.destroy', $nurse->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-red-300 hover:text-red-500 font-semibold">Delete</button>
@@ -42,17 +42,16 @@
 
     <!-- Pagination -->
     <div class="flex justify-center mt-6">
-        {{ $patients->links() }}
+        {{ $nurses->links() }}
     </div>
 </div>
 @endsection
 
-
-<!-- Add Patient Modal -->
-<div id="addPatientModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<!-- Add Nurse Modal -->
+<div id="addNurseModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white p-6 rounded-lg w-full max-w-md space-y-4 shadow-lg">
-        <h2 class="text-xl font-bold text-yellow-900">Add New Patient</h2>
-        <form id="addPatientForm">
+        <h2 class="text-xl font-bold text-yellow-900">Add New Nurse</h2>
+        <form id="addNurseForm">
             @csrf
             <div class="space-y-3">
                 <div>
@@ -64,8 +63,19 @@
                     <input type="number" name="age" id="age" class="w-full border border-gray-300 rounded px-3 py-2" required>
                 </div>
                 <div>
-                    <label for="room_number" class="block text-sm font-medium text-gray-700">Room Number</label>
-                    <input type="text" name="room_number" id="room_number" class="w-full border border-gray-300 rounded px-3 py-2" required>
+                    <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
+                    <select name="position" id="position" class="w-full border border-gray-300 rounded px-3 py-2" required>
+                        <option value="">Select Position...</option>
+                        <option value="Head Nurse">Head Nurse</option>
+                        <option value="Staff Nurse">Staff Nurse</option>
+                        <option value="Nursing Assistant">Nursing Assistant</option>
+                        <option value="Charge Nurse">Charge Nurse</option>
+                        <option value="Clinical Nurse">Clinical Nurse</option>
+                        <option value="ICU Nurse">ICU Nurse</option>
+                        <option value="ER Nurse">ER Nurse</option>
+                        <option value="Pediatric Nurse">Pediatric Nurse</option>
+                    </select>
+
                 </div>
                 <div>
                     <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
@@ -87,61 +97,56 @@
 
 <script>
     function openModal() {
-        document.getElementById('addPatientModal').classList.remove('hidden');
+        document.getElementById('addNurseModal').classList.remove('hidden');
     }
 
     function closeModal() {
-        document.getElementById('addPatientModal').classList.add('hidden');
-        document.getElementById('addPatientForm').reset(); // clear form
+        document.getElementById('addNurseModal').classList.add('hidden');
+        document.getElementById('addNurseForm').reset(); // clear form
     }
 
-    document.getElementById('addPatientForm').addEventListener('submit', async function (e) {
+    document.getElementById('addNurseForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
         const form = e.target;
         const formData = new FormData(form);
 
         try {
-            const response = await fetch("{{ route('patients.store') }}", {
+            const response = await fetch("{{ route('nurses.store') }}", {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'X-Requested-With': 'XMLHttpRequest', // <-- add this
+                    'X-Requested-With': 'XMLHttpRequest',
                     'Accept': 'application/json'
                 },
                 body: formData
             });
 
-            let data;
-            try {
-                data = await response.json();
-            } catch (parseError) {
-                throw new Error('Invalid JSON response from server');
-            }
+            const data = await response.json();
 
             if (!response.ok || !data.success) {
-                alert('Error: ' + (data.message || 'Failed to add patient.'));
+                alert('Error: ' + (data.message || 'Failed to add nurse.'));
                 return;
             }
 
-            const p = data.patient;
+            const n = data.nurse;
 
             const card = document.createElement('div');
             card.className = "bg-white p-4 rounded-lg shadow hover:shadow-lg transition cursor-pointer group relative";
             card.innerHTML = `
-                <img src="/images/${p.gender === 'male' ? 'nurse-male.png' : 'nurse.png'}"
-                     alt="Patient Icon"
+                <img src="/images/${n.gender === 'male' ? 'nurse-male.png' : 'nurse-icon.png'}"
+                     alt="Nurse Icon"
                      class="w-24 h-24 mx-auto rounded-full object-cover border border-gray-300 mb-3">
 
                 <div class="text-center">
-                    <h3 class="text-lg font-semibold text-gray-800">${p.name}</h3>
-                    <p class="text-sm text-gray-600">Age: ${p.age}</p>
-                    <p class="text-sm text-gray-600">Room: ${p.room_number}</p>
+                    <h3 class="text-lg font-semibold text-gray-800">${n.name}</h3>
+                    <p class="text-sm text-gray-600">Age: ${n.age}</p>
+                    <p class="text-sm text-gray-600">Position: ${n.position}</p>
                 </div>
 
                 <div class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center space-x-4 opacity-0 group-hover:opacity-100 transition">
-                    <a href="/patients/${p.id}/edit" class="text-white font-semibold hover:underline">Edit</a>
-                    <form method="POST" action="/patients/${p.id}" onsubmit="return confirm('Are you sure?')">
+                    <a href="/nurses/${n.id}/edit" class="text-white font-semibold hover:underline">Edit</a>
+                    <form method="POST" action="/nurses/${n.id}" onsubmit="return confirm('Are you sure?')">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="text-red-300 hover:text-red-500 font-semibold">Delete</button>
@@ -149,9 +154,9 @@
                 </div>
             `;
 
-            // Optional: fade-in animation
+            document.getElementById('nurseGrid').appendChild(card);
+
             card.style.opacity = 0;
-            document.getElementById('patientGrid').appendChild(card);
             setTimeout(() => {
                 card.style.transition = 'opacity 0.5s ease-in-out';
                 card.style.opacity = 1;
@@ -164,6 +169,3 @@
         }
     });
 </script>
-
-
-

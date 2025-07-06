@@ -2,26 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nurse;
+use App\Models\DutySchedule;
+use App\Models\Note;
 use Illuminate\Http\Request;
-use App\Models\Patient;
-use App\Models\CareTask;
-use App\Models\NursingNote;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    // DashboardController.php
     public function index()
     {
-        $patientCount = Patient::count();
+        $nurseCount = Nurse::count();
 
-        $reminders = CareTask::with('patient')
-            ->whereDate('scheduled_time', now()->toDateString())
-            ->orderBy('scheduled_time')
-            ->get();
+        $today = Carbon::today()->toDateString();
+        $onDutyCount = DutySchedule::where('duty_date', $today)->count();
 
-        $notes = \App\Models\NursingNote::latest()->take(5)->get();
+        $notes = Note::latest()->take(10)->get();
 
-        return view('dashboard', compact('patientCount', 'reminders', 'notes'));
+        return view('dashboard', compact('nurseCount', 'onDutyCount', 'notes'));
+    }
+
+    public function storeNote(Request $request)
+    {
+        $request->validate(['note' => 'required|string|max:255']);
+        Note::create(['note' => $request->note]);
+
+        return back()->with('success', 'Note added!');
     }
 }

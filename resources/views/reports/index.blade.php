@@ -2,47 +2,43 @@
 
 @section('content')
 <div class="container mx-auto px-4">
-    <h2 class="text-2xl font-semibold text-yellow-900 mb-6">Patient Reports</h2>
+    <h2 class="text-2xl font-semibold text-yellow-900 mb-6">Weekly Summary Report</h2>
+    <p class="text-sm text-gray-500 mb-4">Week: {{ $startOfWeek->toFormattedDateString() }} - {{ $endOfWeek->toFormattedDateString() }}</p>
 
-    @foreach($patients as $patient)
-    <div class="border p-4 mb-4 rounded shadow">
-        <h3 class="text-xl font-bold text-yellow-900">{{ $patient->name }}</h3>
-        <p>Room: {{ $patient->room_number }}</p>
-        <p>Age: {{ $patient->age }}</p>
-
-        @if ($patient->vitalSign)
-            <p>BP: {{ $patient->vitalSign->blood_pressure }}</p>
-            <p>Temp: {{ $patient->vitalSign->temperature }}</p>
-            <p>Pulse: {{ $patient->vitalSign->pulse_rate }}</p>
-        @else
-            <p class="text-gray-500">No vital signs recorded.</p>
-        @endif
-
-        @if ($patient->careTasks->count())
-            <ul class="mt-2">
-                @foreach ($patient->careTasks as $task)
-                    <li class="text-sm text-gray-700">🕒 {{ $task->task_hour }} - {{ $task->task }}</li>
-                @endforeach
-            </ul>
-        @else
-            <p class="text-gray-500">No care tasks assigned.</p>
-        @endif
-
-        <form action="{{ route('reports.destroy', $patient->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this patient\'s report data?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500">
-                Delete Report Data
-            </button>
-        </form>
-
-    </div>
-@endforeach
-
-<div class="mt-6">
-    {{ $patients->links() }}
-</div>
-
-
+    <table class="min-w-full bg-white shadow rounded mb-6 text-sm">
+        <thead class="bg-yellow-900 text-white">
+            <tr>
+                <th class="py-2 px-4 text-left">Nurse</th>
+                <th class="py-2 px-4">Duty Dates</th>
+                <th class="py-2 px-4">Leaves</th>
+                <th class="py-2 px-4">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($nurses as $nurse)
+                @php
+                    $nurseDuties = $duties->where('nurse_id', $nurse->id);
+                    $nurseLeaves = $leaves->where('nurse_id', $nurse->id);
+                    $status = count($nurseLeaves) > 0 ? 'On Leave' : (count($nurseDuties) > 0 ? 'On Duty' : 'Absent');
+                @endphp
+                <tr class="border-b hover:bg-gray-100">
+                    <td class="py-2 px-4">{{ $nurse->name }}</td>
+                    <td class="py-2 px-4">
+                        @foreach ($nurseDuties as $duty)
+                            <div>{{ $duty->duty_date }} - {{ $duty->shift }}</div>
+                        @endforeach
+                    </td>
+                    <td class="py-2 px-4">
+                        @foreach ($nurseLeaves as $leave)
+                            <div>{{ $leave->leave_date }} - {{ $leave->reason }}</div>
+                        @endforeach
+                    </td>
+                    <td class="py-2 px-4 font-semibold {{ $status === 'Absent' ? 'text-red-500' : ($status === 'On Leave' ? 'text-yellow-600' : 'text-green-600') }}">
+                        {{ $status }}
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection

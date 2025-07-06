@@ -2,35 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nurse;
+use App\Models\DutySchedule;
+use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
-use App\Models\Patient;
-use App\Models\VitalSign;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
-public function index()
-{
-    $patients = Patient::whereHas('vitalSign')
-        ->orWhereHas('careTasks')
-        ->with(['vitalSign', 'careTasks'])
-        ->paginate(5);
+    public function index()
+    {
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
 
-    return view('reports.index', compact('patients'));
-}
+        $nurses = Nurse::all();
 
-public function destroy(Patient $patient)
-{
-    // Delete all care tasks related to the patient
-    $patient->careTasks()->delete();
+        $duties = DutySchedule::with('nurse')
+                    ->whereBetween('duty_date', [$startOfWeek, $endOfWeek])
+                    ->get();
 
-    // Delete the vital sign if it exists
-    if ($patient->vitalSign) {
-        $patient->vitalSign()->delete();
+        $leaves = LeaveRequest::with('nurse')
+                    ->whereBetween('leave_date', [$startOfWeek, $endOfWeek])
+                    ->get();
+
+        return view('reports.index', compact('nurses', 'duties', 'leaves', 'startOfWeek', 'endOfWeek'));
     }
-
-    return redirect()->route('reports.index')->with('success', 'Report data deleted successfully.');
 }
 
-
-
-}
