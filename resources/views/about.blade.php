@@ -3,30 +3,30 @@
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="bg-white p-6 rounded shadow-lg">
-        <h1 class="text-3xl font-bold text-yellow-900 mb-4">About NurseAssist Web</h1>
+        <h1 class="text-3xl font-bold text-yellow-900 mb-4">About NurseAdmin Lite</h1>
 
         <p class="text-gray-700 mb-4">
-            NurseAssist Web is a lightweight, easy-to-use system designed to support nurses in managing patient care more efficiently. Built with the modern nurse in mind, the system provides essential tools to help streamline daily responsibilities while maintaining compassionate, high-quality care.
+            <strong>NurseAdmin Lite</strong> is a simplified, web-based administrative system built to help nursing supervisors and healthcare teams efficiently manage staff-related operations. It offers essential features that streamline scheduling, leave tracking, and attendance monitoring, all in one easy-to-use platform.
         </p>
 
-        <h2 class="text-2xl font-semibold text-yellow-800 mt-6 mb-2">Our Features</h2>
+        <h2 class="text-2xl font-semibold text-yellow-800 mt-6 mb-2">Key Features</h2>
         <ul class="list-disc list-inside text-gray-700 space-y-1">
-            <li>📘 Patient Book – Quick access to patient info, updates, and profiles.</li>
-            <li>🩺 Vital Signs – Record and monitor vital signs in real time.</li>
-            <li>⏰ Care Task Scheduler – Schedule and track tasks by shift.</li>
-            <li>📄 Reports – Generate comprehensive care summaries and task reports.</li>
-            <li>📝 Nursing Notes – Document patient observations and progress.</li>
-            <li>📊 Dashboard – View quick stats, reminders, and notes all in one place.</li>
+            <li>👩‍⚕️ <strong>Nurse Directory</strong> – View, add, update, and manage nurse profiles.</li>
+            <li>📅 <strong>Duty Scheduling</strong> – Assign and track duty shifts for each nurse.</li>
+            <li>🏖️ <strong>Leave Requests</strong> – Request and manage nurse leaves with approval tracking.</li>
+            <li>📌 <strong>Attendance Tracker</strong> – Monitor nurse attendance status weekly.</li>
+            <li>📄 <strong>Reports</strong> – Generate summaries from all nurse admin records.</li>
+            <li>📊 <strong>Dashboard</strong> – Quick view of key stats and nursing activity notes.</li>
         </ul>
 
-        <h2 class="text-2xl font-semibold text-yellow-800 mt-6 mb-2">Our Mission</h2>
+        <h2 class="text-2xl font-semibold text-yellow-800 mt-6 mb-2">Purpose</h2>
         <p class="text-gray-700 mb-4">
-            To empower nurses by providing a reliable, minimal, and responsive platform that reduces paperwork and supports better decision-making at the point of care.
+            The system is designed to reduce manual tracking, improve task visibility, and support better planning within nursing departments — especially in clinical and educational settings.
         </p>
 
-        <h2 class="text-2xl font-semibold text-yellow-800 mt-6 mb-2">Built By</h2>
-        <p class="text-gray-700 mb-2">
-            This system was developed with care by a student aiming to bring modern tech solutions to nursing practice and improve the patient care experience.
+        <h2 class="text-2xl font-semibold text-yellow-800 mt-6 mb-2">Developed By</h2>
+        <p class="text-gray-700">
+            NurseAdmin Lite was built by a nursing student passionate about integrating technology into healthcare practice. This project demonstrates how even a lightweight tool can improve daily nursing workflows and reduce administrative burdens.
         </p>
     </div>
 </div>
